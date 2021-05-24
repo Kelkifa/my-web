@@ -1,0 +1,59 @@
+<div class="admin-manage-anime">
+    <h3 class="title-table">Trash</h3>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col">Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Image</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if(!flag){ %>
+                <tr>
+                    <td colspan="5">
+                        <div class="empty-notifi">
+                            <span>Trash is empty </span>
+                            <a href="/admin/manage/animes">go back to anime manage </a>
+                        </div>
+                    </td>
+                </tr>
+                <% }else{ %>
+                    <% animes.forEach((anime, index)=>{ %>
+                        <tr>
+                            <th scope="row">
+                                <%= index+1 %>
+                            </th>
+                            <td>
+                                <%= anime.name %>
+                            </td>
+                            <td>
+                                <%= anime.description %>
+                            </td>
+                            <td>
+                                <img class="table-image" src="<%= anime.image %>" alt="error">
+                            </td>
+                            <td>
+                                <form method="POST" action="/admin/manage/animes/<%= anime._id %>/restore?_method=PATCH"
+                                    name="hidden-form-delete">
+                                    <a class="submit-form-action btn-link" href="">Restore</a>
+                                </form>
+                                <form method="POST"
+                                    action="/admin/manage/animes/<%= anime._id %>/force-delete?_method=DELETE"
+                                    name="hidden-form-delete">
+                                    <a type="submit" class="btn-link submit-form-action" href="">Delete</a>
+                                </form>
+                            </td>
+                        </tr>
+                        <% }); } %>
+        </tbody>
+    </table>
+</div>
+<script>
+    $('.submit-form-action').click(function (e) {
+        e.preventDefault();
+        $(this).parent().submit();
+    });
+</script>

@@ -1,0 +1,25 @@
+{
+    "type": "NodeJS",
+    "children_parts":[
+        {
+            "title":"Khởi tạo chương trình đầu tiên",
+            "index":"1",
+            "content": "-Mở Visual code - Chọn thư mục sẽ lưu project",
+            "image":[
+                "https://i.pinimg.com/originals/63/c1/f8/63c1f8eb2c6cc525fe6f1333199e2e8b.png"
+            ]
+        },
+        {
+            "title":"Khởi tạo chương trình thứ 2",
+            "index":"2",
+            "content": "Mở trình duyệt nhập localhost:3000",
+            "images":[
+                "https://i.pinimg.com/236x/0a/9f/a8/0a9fa85b2ddac91b2dd18e8682932937.jpg"
+            ]
+        }
+    ],
+    "parent_part":{
+        "index":2,
+        "title":"Khởi tạo chương trình đầu tiên"
+    }
+}

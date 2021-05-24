@@ -1,0 +1,46 @@
+<div id="update-card-container">
+    <div class="add-card">
+        <div class="login-box">
+            <h5 class='title-update'>Update</h5>
+                <form name="updateword" method="POST" action="/admin/<%= _logged.word._id %>/update-word?_method=PUT">
+                    <div class="content-form">
+                        <div class="db-inp">
+                            <div class="inp-r">
+                                <input name="topic" value="<%= _logged.word.topic %>" autocomplete="off" type="text" required>
+                                <label for="">Topic</label>
+                            </div>
+                            <div class="inp-l">
+                                <input name="word" value="<%= _logged.word.word %>" autocomplete="off" type="text" required>
+                                <label for="">Word</label>
+                            </div>
+                        </div>
+                        <div class="db-inp">
+                            <div class="inp-a">
+                                <input name="description" value="<%= _logged.word.description %>" type="text" autocomplete="off" required>
+                                <label for="">description</label>
+                            </div>
+                        </div>
+                        <div class="db-inp">
+                            <div class="inp-a">
+                                <input name="mean" value="<%= _logged.word.mean %>" type="text" autocomplete="off" required>
+                                <label for="">Mean</label>
+                            </div>
+                            <div class="inp-a">
+                                <input name="image" value="<%= _logged.word.image %>" type="text" autocomplete="off" required>
+                                <label for="">Image link</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="submit-form" id="update-card-button">
+                        <a href="#">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            Submit
+                        </a>
+                    </div>
+                </form>
+            </div>
+    </div>
+</div>

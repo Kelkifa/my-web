@@ -1,0 +1,78 @@
+.test {
+  color: white;
+}
+.card {
+  height: 800px;
+}
+.card-text {
+  max-height: 233px;
+  overflow: auto;
+}
+.card-text::-webkit-scrollbar {
+  width: 2px;
+  background-color: #e2dddd; /* or add it to the track */
+}
+.card-text::-webkit-scrollbar-thumb {
+  background: #9b9797;
+}
+.form-content {
+  width: 600px;
+  margin: 30px auto;
+  border: 1px solid black;
+  padding: 40px;
+}
+.form-content h2 {
+  text-align: center;
+}
+.login-register {
+  margin-bottom: 20px;
+}
+.dropdow {
+  margin-right: 50px;
+}
+//  Collapsible [admin index]
+.card-coll {
+  width: 200px;
+}
+.collapsible h5 {
+  text-align: center;
+}
+.card-coll-content {
+  background-color: #eee;
+}
+.collapsible {
+  color: #444;
+  cursor: pointer;
+  padding: 0px 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+.collapsible-active,
+.collapsible:hover {
+  background-color: #ccc;
+}
+.collapsible-content {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+}
+
+// table
+.table-image {
+  height: 100px;
+}
+.empty-notifi {
+  text-align: center;
+}
+.title-table {
+  text-align: center;
+}
+
+@import "scssModules/eCard";
+@import "scssModules/searchWords";
+@import "scssModules/admin";
+@import "scssModules/myDocumentIndex.scss";

@@ -1,0 +1,31 @@
+<div class="parent-parts">
+    <h4 onclick="document.location='/my-document?type=<%= type %>'">
+        <%= type %>
+    </h4>
+    <% documents.forEach((document, index)=>{ %>
+        <div class="btn-type-container">
+            <div class="btn-containers">
+                <button onclick="document.location='/my-document?type=<%= document.type %>&id=<%= document._id %>'">
+                    <div class="btn-content">
+                        <%= document.parent_part.title %>
+                    </div>
+                </button>
+            </div>
+            <div class="icon-btn-container">
+                <div class="btn-icon">
+                    <a href="/my-document/<%= document._id %>/update-form">
+                        <i class="fa js-update-document-button">&#xf0ad;</i>
+                    </a>
+                </div>
+                <div class="btn-icon">
+                    <a href="/home" class="delete-document-btn">
+                        <form method="POST" action="/my-document/<%= document._id %>/delete?_method=DELETE">
+                            <i class="fa fa-trash js-delete-document-button"></i>
+                            <input hidden type="text" name="type" value="<%= type %>">
+                        </form>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <% }); %>
+</div>

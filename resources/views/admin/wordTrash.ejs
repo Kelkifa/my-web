@@ -1,0 +1,68 @@
+<div class="admin-manage-word">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col">Word</th>
+                <th scope="col">Mean</th>
+                <th scope="col">Description</th>
+                <th scope="col">Topic</th>
+                <th scope="col">Image</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if(!flag){ %>
+                <tr>
+                    <td colspan="5">
+                        <div class="empty-notifi">
+                            <span>This trash is empty </span>
+                            <a href="/word">go word page </a>
+                            <span>or </span>
+                            <a href="admin"> go to admin page</a>
+                        </div>
+                    </td>
+                </tr>
+                <% }else{ %>
+                    <% words.forEach((word, index)=>{ %>
+                        <tr>
+                            <th scope="row">
+                                <%= index+1 %>
+                            </th>
+                            <td>
+                                <%= word.word %>
+                            </td>
+                            <td>
+                                <%= word.mean %>
+                            </td>
+                            <td>
+                                <%= word.description %>
+                            </td>
+                            <td>
+                                <%= word.topic %>
+                            </td>
+                            <td>
+                                <img class="table-image" src="<%= word.image %>" alt="error">
+                            </td>
+                            <td>
+                                <form method="POST" action="/admin/manage/words/<%= word._id %>/restore?_method=PATCH"
+                                    name="hidden-form-delete">
+                                    <a class="submit-form-action btn-link" href="">Restore</a>
+                                </form>
+                                <form method="POST"
+                                    action="/admin/manage/words/<%= word._id %>/force-delete?_method=DELETE"
+                                    name="hidden-form-delete">
+                                    <a type="submit" class="btn-link submit-form-action" href="">Delete</a>
+                                </form>
+                            </td>
+                        </tr>
+                        <% }); } %>
+        </tbody>
+    </table>
+</div>
+<script>
+    $('.submit-form-action').click(function (e) {
+        e.preventDefault();
+        $(this).parent().submit();
+    });
+</script>

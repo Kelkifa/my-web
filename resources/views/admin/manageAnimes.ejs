@@ -1,0 +1,56 @@
+<div class="admin-manage-anime">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col">Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Image</th>
+                <th><a href="/admin/manage/animes/trash">Trash</a></th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if(!flag){ %>
+                <tr>
+                    <td colspan="5">
+                        <div class="empty-notifi">
+                            <span>Anime list is null </span>
+                            <a href="/admin/create-anime">create anime </a>
+                            <span>or </span>
+                            <a href=""> go to trash</a>
+                        </div>
+                    </td>
+                </tr>
+                <% }else{ %>
+                    <% animes.forEach((anime, index)=>{ %>
+                        <tr>
+                            <th scope="row">
+                                <%= index+1 %>
+                            </th>
+                            <td>
+                                <%= anime.name %>
+                            </td>
+                            <td>
+                                <%= anime.description %>
+                            </td>
+                            <td>
+                                <img class="table-image" src="<%= anime.image %>" alt="error">
+                            </td>
+                            <td>
+                                <a class="btn-link" href="/admin/manage/animes/<%= anime._id %>/update">Update</a>
+                                <form method="POST" action="/admin/manage/animes/<%= anime._id %>/delete?_method=PATCH"
+                                    name="hidden-form-delete">
+                                    <a class="submit-sort-delete" type="submit" class="btn-link" href="">Delete</a>
+                                </form>
+                            </td>
+                        </tr>
+                        <% }); } %>
+        </tbody>
+    </table>
+</div>
+<script>
+    $('.submit-sort-delete').click(function (e) {
+        e.preventDefault();
+        $(this).parent().submit();
+    });
+</script>

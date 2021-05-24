@@ -1,0 +1,77 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<div class="document-content">
+    <% if(document){ %>
+        <% document.children_parts.forEach(children_part=> { %>
+            <h5>
+                <%= children_part.index %>.
+                    <%= children_part.title %>
+            </h5>
+            <% children_part.content.forEach((data, index)=>{ %>
+                <% if(children_part.sort[index]==0){ %>
+                    <% data=data.split("\n") %>
+                        <p>
+                            <% data.forEach(value=>{ %>
+                                <%= value %>
+                                    <br />
+                                    <% }); %>
+                        </p>
+                        <% } else { %>
+                            <img src="<%= data %>" alt="">
+                            <% } %>
+                                <% }); %>
+
+                                    <% }); %>
+
+</div>
+<% } else{ %>
+    <div class="add-content-document-form">
+        <h3>Add a new document</h3>
+
+        <form method="POST" action="/my-document/store" name="form-create-myDocument">
+            <div class="form-group" default="true">
+                <label>Parent Part Title</label>
+                <input name="parent_part_title" type="text" class="form-control" placeholder="Enter Parent Part Title">
+            </div>
+
+            <div class="children-parts" index=0>
+                <div class="form-group" default="true">
+                    <label for="ad-myDocument-myDocument">Children Part Title</label>
+                    <input name="children_part_title[]" default="true" autocomplete="off" type="text"
+                        class="form-control" placeholder="Enter Children Part Pitle">
+                    <input hidden type="text">
+                    <div class="tool-a-e">
+                        <div class="icons-container">
+                            <div class="icon-container">
+                                <i style="font-size:15px" class="fa plus add-p">&#xf196;</i>
+                            </div>
+                            <div class="icon-container" checkpoint="aic">
+                                <i style="font-size:15px" class="fa add-img">&#xf03e;</i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="children-part-content">Children Part Content</label>
+                    <textarea name="children_part_content[0][]" type="text" class="form-control"
+                        placeholder="Enter children part content"></textarea>
+                    <input hidden name="sort[0][]" value=0 type="text">
+                    <div class="tool-a-e">
+                        <div class="icons-container">
+                            <div class="icon-container">
+                                <i style="font-size:15px" class="fa plus add-p">&#xf196;</i>
+                            </div>
+                            <div class="icon-container" checkpoint="aic">
+                                <i style="font-size:15px" class="fa add-img">&#xf03e;</i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button id="button-create-document" name="type" value="<%= type %>" type="submit"
+                class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+    <% } %>
+        </div>
+        <script type="text/javascript" src="/js/addInputCreateDocumentForm.js"></script>

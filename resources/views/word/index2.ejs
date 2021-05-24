@@ -1,0 +1,67 @@
+<link href='/css/icons/add.css' rel='stylesheet'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<div class="container-fluid word-index">
+    <section class="title-card-page">
+        <div class="title-card-page-l part-title">
+            <h3>
+                Cards
+                <%- include('../helpers/createWordCardForm'); %>
+            </h3>
+        </div>
+        <div class="title-card-page-r">
+            <%- include('../helpers/searchWords'); %>
+        </div>
+
+    </section>
+
+    <section class="my-cards">
+        <% words.forEach(word=> { %>
+            <div class="card-container">
+                <div class="a-card show-card">
+                    <div name="<%= word.word %>" class="cardFront card-side isActive">
+                        <div class="card-image">
+                            <img src="<%= word.image %>" alt="image error">
+                        </div>
+                        <div class="card-content">
+                            <h6>
+                                <%= word.word %>
+                            </h6>
+                            <p>
+                                <%= word.description %>
+                            </p>
+                            <div class="btn-container">
+                                <div class="icon">
+                                    <i class="fa js-update-card-button">&#xf0ad;</i>
+                                </div>
+                                <div class="icon">
+                                    <form method="POST"
+                                        action="/admin/manage/words/<%= word._id %>/delete?_method=PATCH&page=word"
+                                        name="hidden-form-delete">
+                                    </form>
+                                    <i class="fa fa-trash js-delete-card-button"></i>
+                                </div>
+                                <button name="<%= word.word %>"
+                                    class="btn btn-primary btn-flip btn-custom js-btn-fn">Flip</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div name="<%= word.word %>" class="cardBack card-side notActive">
+                        <p>
+                            <%= word.mean %>
+                        </p>
+                        <div class="btn-container">
+                            <button name="<%= word.word %>" class="btn btn-primary btn-flip btn-custom">Flip</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="update-card">
+                    <% _logged.word=word; %>
+                        <%- include('../helpers/updateWordCardForm'); %>
+                </div>
+            </div>
+            <% }) %>
+
+    </section>
+</div>
+<script type="text/javascript" src="/js/englishIndex.js"></script>
+<script type="text/javascript" src="/js/searchWords.js"></script>

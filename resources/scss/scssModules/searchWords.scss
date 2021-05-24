@@ -1,0 +1,38 @@
+.search-ct{
+    // padding:10px 0px;
+    height:100%;  //50px
+    width:100%;     //400px
+    padding:5px 0px;
+    a{
+        text-decoration: none;
+        color:blue;
+    }
+    button, input,a {
+        height: 100%;
+        display: inline-block;
+    }
+    button[data-toggle="dropdown"]{
+        width: 22%;
+        float: left;
+        position: relative;
+        z-index: 98;
+        box-shadow: inherit ;
+        padding:4px;
+    }
+    input[name='search']{
+        width:63%;
+        float:left;
+        box-shadow: inherit ;
+    }
+    button[name='search']{
+        width:15%;   
+        box-shadow: inherit ;
+    }
+    .dropdown-menu{
+        li{
+            position: relative;
+            width:160px;
+            padding:0px 10px;
+        }
+    }
+}

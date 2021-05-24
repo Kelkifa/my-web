@@ -1,0 +1,25 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<div class="my-document-index">
+    <div class="nav-bar-header">
+        <div class="ry"><i class="fa fa-bars"></i></div>
+        <% if(webResearchs) { %>
+            <% webResearchs.forEach(webResearch=>{ %>
+                <div class="ry" onclick="document.location='/my-document?type=<%= webResearch.name %>'">
+                    <%= webResearch.name %>
+                </div>
+                <% }); %>
+                    <% } %>
+    </div>
+    <div class="body-document">
+        <% if(!type) { %>
+            <h3>tutorial</h3>
+            <% } else {%>
+                <div class="nav-bar-left">
+                    <%- include('../modules/mMyDocument/iNavBarLeft', {documents: data.documents, type}); %>
+                </div>
+                <div class="show-detail-document">
+
+
+                    <%- include('../modules/mMyDocument/iShowDetail', {document: data.detail}) %>
+                </div>
+                <% } %>

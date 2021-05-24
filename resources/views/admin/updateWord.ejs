@@ -1,0 +1,26 @@
+<div class="ad-createword form-content">
+    <h2>Update word</h2>
+    <form name="updateword" method="POST" action="/admin/<%= word._id %>/update-word?_method=PUT">
+        <div class="form-group">
+            <label for="ad-word-name">Word</label>
+            <input name="word" type="text" value="<%= word.word %>" class="form-control" placeholder="Enter word name">
+        </div>
+        <div class="form-group">
+            <label for="ad-word-mean">Mean</label>
+            <textarea name="mean" type="text" class="form-control" id="ad-word-mean" placeholder="Enter the mean"><%= word.mean %></textarea>
+        </div>
+        <div class="form-group">
+            <label for="ad-word-description">Description</label>
+            <textarea name="description" type="text" class="form-control" id="ad-word-description" placeholder="Enter the description"><%= word.description %></textarea>
+        </div>
+        <div class="form-group">
+            <label for="ad-word-topic">Topic</label>
+            <textarea name="topic" type="text" class="form-control" id="ad-word-topic" placeholder="Enter the topic"><%= word.topic %></textarea>
+        </div>
+        <div class="form-group">
+            <label for="">Word Link</label>
+            <input name="image" type="text" class="form-control" value="<%= word.image %>" id="ad-word-link" placeholder="Enter the image link">
+        </div>
+        <button name="submit" type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>

@@ -1,0 +1,370 @@
+<link href='/css/icons/add.css' rel='stylesheet' />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+<div class="container-fluid word-index">
+
+</div>
+<!-- Khởi tạo các biến lưu dữ liệu -->
+<script>
+    var logged = '<%- JSON.stringify(_logged) %>';
+    var words = '<%- JSON.stringify(words) %>';
+
+    logged = JSON.parse(logged);
+    words = JSON.parse(words);
+
+</script>
+
+<!-- ReactJS -->
+<script type="text/babel">
+    /*Title Card page components*/
+
+    //Create card from
+    class CreateCardForm extends React.Component {
+        constructor(props) {
+            super(props);
+        }
+        submitForm(e) {
+            e.preventDefault();
+            $(e.target).parents('form').submit();
+        }
+        render() {
+            var layout = (
+                <div id="add-card">
+                    <div class="login-box">
+                        <h5>Create</h5>
+                        <form method="POST" action="/word/store" name="form-create-word">
+                            <div class="inputs-form">
+                                <div class="user-box">
+                                    <input type="text" name="topic" autocomplete="off" required />
+                                    <label >Topic</label>
+                                </div>
+                                <div class="user-box">
+                                    <input type="text" name="word" autocomplete="off" required />
+                                    <label>Word</label>
+                                </div>
+                                <div class="user-box">
+                                    <textarea type="text" name="description" autocomplete="off" required ></textarea>
+                                    <label>Description</label>
+                                </div>
+                                <div class="user-box">
+                                    <input type="text" name="mean" autocomplete="off" required />
+                                    <label>Mean</label>
+                                </div>
+                                <div class="user-box">
+                                    <input type="text" name="image" autocomplete="off" required />
+                                    <label>Image</label>
+                                </div>
+                            </div>
+                            <div class="submit-form" id="js-button-create-word">
+                                <a href="#" onClick={this.submitForm.bind(this)}>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+
+                                            Submit
+                            </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            )
+
+            var content = (this.props.isShow) ? layout : "";
+            return (
+                <div id={this.props.idName}>
+                    {content}
+                </div>
+            );
+        }
+    }
+    //left title card page
+    class TitleCardPageL extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = {
+                showCreateForm: false,
+            }
+        }
+        handleAddIconClick(e) {
+            this.setState(state => {
+                return { showCreateForm: !this.state.showCreateForm };
+            });
+        }
+        render() {
+            return (
+                <div class={this.props.classNames}>
+                    <h3>
+                        <span>Cards</span>
+                        <i id="add-card" class="gg-add" onClick={this.handleAddIconClick.bind(this)}></i>
+                        <CreateCardForm isShow={this.state.showCreateForm} idName="add-card-container"></CreateCardForm>
+                    </h3>
+                </div >
+            )
+        }
+    }
+    //Right title card page 
+    class TitleCardPageR extends React.Component {
+        render() {
+            return (
+                <div class={this.props.classNames}>
+                    <div class="search-ct">
+                        <button type="button"
+                            class="btn btn-sm dropdown-toggle search-type-btn"
+                            data-toggle="dropdown">
+                            --Word--
+                        </button>
+                        <ul class="dropdown-menu choose-type-dropdown" role="menu">
+                            <li><a href="w">Word</a></li>
+                            <li><a href="t">Topic</a></li>
+                            <li><a href="m">Mean</a></li>
+                        </ul>
+                        <input type="text" class="form-control" name="search" placeholder="Search term..." />
+                        <a name="search" href="/word?type=w" id="word-search" class="btn btn-sm" type="button">Search</a>
+                    </div>
+                </div>
+            )
+        }
+    }
+
+
+    /* My cards*/
+    //Font card
+    class FontCard extends React.Component {
+        constructor(props) {
+            super(props);
+        }
+        cardDeleteHandler(e) {
+            $(e.target).prev().submit();
+        }
+        render() {
+            var word = this.props.word;
+            return (
+                <div name={word._id} class={this.props.classNames}>
+                    <div class="card-image">
+                        <img src={word.image} />
+                    </div>
+                    <div class="card-content">
+                        <h6>
+                            {word.word}
+                        </h6>
+                        <p>
+                            {word.description}
+                        </p>
+                        <div class="btn-container">
+                            <div class="icon">
+                                <i class="fa js-update-card-button" onClick={(e) => { this.props.clickedUpdateCardHandler(e) }}>&#xf0ad;</i>
+                            </div>
+                            <div class="icon">
+                                <form method="POST"
+                                    action={"/admin/manage/words/" + word._id + "/delete?_method=PATCH&page=word"}
+                                    name="hidden-form-delete">
+                                </form>
+                                <i class="fa fa-trash js-delete-card-button" onClick={this.cardDeleteHandler}></i>
+                            </div>
+                            <button name={word._id} onClick={(e) => { this.props.clickedFlipButton(e) }}
+                                class="btn btn-primary btn-flip btn-custom js-btn-fn">Flip</button>
+                        </div>
+                    </div>
+                </div>
+            )
+        }
+    }
+    //Back card
+    class BackCard extends React.Component {
+        constructor(props) {
+            super(props);
+        }
+        render() {
+            var word = this.props.word;
+            return (
+                <div name={word._id} class={this.props.classNames}>
+                    <p>
+                        {word.mean}
+                    </p>
+                    <div class="btn-container">
+                        <button name={word._id} class="btn btn-primary btn-flip btn-custom" onClick={(e) => { this.props.clickedFlipButton(e) }}>Flip</button>
+                    </div>
+                </div>
+            )
+        }
+
+    }
+    //Update card
+    class UpdateCard extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = {
+                topic: this.props.word.topic,
+                word: this.props.word.word,
+                description: this.props.word.description,
+                mean: this.props.word.mean,
+                image: this.props.word.image
+            };
+            this.submitUpdateCard = this.submitUpdateCard.bind(this);
+
+        }
+        changeInputHandler(e) {
+            this.setState(state => { return { [e.target.name]: e.target.value } });
+        }
+        submitUpdateCard(e) {
+            e.preventDefault();
+            $(e.target).parents('form').submit();
+        }
+        render() {
+            var word = this.props.word;
+            return (
+                <div class="update-card">
+                    <div id="update-card-container">
+                        <div id="update-card-container">
+                            <div class="add-card">
+                                <div class="login-box">
+                                    <h5 class='title-update'>Update</h5>
+                                    <form name="updateword" method="POST" action={"/admin/" + word._id + "/update-word?_method=PUT"}>
+                                        <div class="content-form">
+                                            <div class="db-inp">
+                                                <div class="inp-r">
+                                                    <input name="topic" value={this.state.topic} autocomplete="off" type="text" onChange={this.changeInputHandler.bind(this)} required />
+                                                    <label for="">Topic</label>
+                                                </div>
+                                                <div class="inp-l">
+                                                    <input name="word" value={this.state.word} autocomplete="off" type="text" required onChange={this.changeInputHandler.bind(this)} />
+                                                    <label for="">Word</label>
+                                                </div>
+                                            </div>
+                                            <div class="db-inp">
+                                                <div class="inp-a">
+                                                    <input name="description" value={this.state.description} type="text" autocomplete="off" required onChange={this.changeInputHandler.bind(this)} />
+                                                    <label for="">description</label>
+                                                </div>
+                                            </div>
+                                            <div class="db-inp">
+                                                <div class="inp-a">
+                                                    <input name="mean" value={this.state.mean} type="text" autocomplete="off" required onChange={this.changeInputHandler.bind(this)} />
+                                                    <label for="">Mean</label>
+                                                </div>
+                                                <div class="inp-a">
+                                                    <input name="image" value={this.state.image} type="text" autocomplete="off" required onChange={this.changeInputHandler.bind(this)} />
+                                                    <label for="">Image link</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="submit-form" id="update-card-button">
+                                            <a href="#" onClick={this.submitUpdateCard}>
+                                                <span></span>
+                                                <span></span>
+                                                <span></span>
+                                                <span></span>
+                            Submit
+                        </a>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            );
+        }
+    }
+    /*Main components*/
+    //Main title card page
+    class TitleCardPage extends React.Component {
+        constructor(props) {
+            super(props);
+        }
+
+        render() {
+            return (
+                <section class={this.props.classNames}>
+                    <TitleCardPageL classNames="title-card-page-l part-title"></TitleCardPageL>
+                    <TitleCardPageR classNames="title-card-page-r"></TitleCardPageR>
+                </section>
+            )
+        }
+    }
+    //Main my cards
+    class MyCards extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = {
+                clickFlag: 0,
+                cardWidth: 160,
+            }
+
+            this.clickedFlipButton = this.clickedFlipButton.bind(this);
+            this.clickedUpdateCardHandler = this.clickedUpdateCardHandler.bind(this);
+        }
+        clickedFlipButton(e) {
+            var cardWidth = this.state.cardWidth;
+            var cardContainer = $(e.target).parents('.card-container');
+            var updateCard = cardContainer.children('.update-card');
+            cardContainer.css('width', `${cardWidth}px`);
+            updateCard.css('transform', 'rotateY(90deg)');
+            updateCard.css('width', `${cardWidth}px`);
+            this.setState(state => { return { clickFlag: 0 } });
+
+            var cardName = $(e.target).attr('name');
+            $(e.target).parents('.card-container').children('.update-card').hide();
+            $(e.target).parents('.card-container').toggleClass('switch');
+            setTimeout(function () {
+                //flip effect
+                $(e.target).parents('.card-container').toggleClass('switch');
+            }, 500);
+
+            $(`.cardFront[name=${cardName}]`).toggleClass('isActive');
+            $(`.cardBack[name=${cardName}]`).toggleClass('isActive');
+            $(`.cardFront[name=${cardName}]`).toggleClass('notActive');
+            $(`.cardBack[name=${cardName}]`).toggleClass('notActive');
+        }
+        clickedUpdateCardHandler(e) {
+            var cardWidth = this.state.cardWidth;
+            var cardContainer = $(e.target).parents('.card-container');
+            var updateCard = cardContainer.children('.update-card');
+            updateCard.show();
+            if (this.state.clickFlag) {
+                cardContainer.css('width', `${cardWidth}px`);
+                updateCard.css('transform', 'rotateY(90deg)');
+                updateCard.css('width', `${cardWidth}px`);
+                this.setState(state => { return { clickFlag: 0 } });
+            }
+            else {
+                cardContainer.css('width', `${cardWidth * 2.5}px`);
+                updateCard.css('width', `${cardWidth * 1.5}px`);
+                updateCard.css('transform', 'rotateY(0deg) translateX(160px)');
+                this.setState(state => { return { clickFlag: 1 } });
+            }
+        }
+        layOutData(words) {
+            return words.map(word => {
+                return (
+                    <div class="card-container" key={word._id}>
+                        <div class="a-card show-card">
+                            <FontCard word={word} classNames="cardFront card-side isActive" clickedFlipButton={this.clickedFlipButton} clickedUpdateCardHandler={this.clickedUpdateCardHandler}></FontCard>
+                            <BackCard word={word} classNames="cardBack card-side notActive" clickedFlipButton={this.clickedFlipButton}></BackCard>
+                        </div>
+                        <UpdateCard word={word}></UpdateCard>
+                    </div >
+                )
+            })
+        }
+        render() {
+            var layoutedData = this.layOutData(this.props.words);
+            return (
+                <section class={this.props.classNames}>
+                    {layoutedData}
+                </section>
+
+            )
+        }
+    }
+    /* ReactJS Render */
+    ReactDOM.render(
+        <div>
+            <TitleCardPage classNames="title-card-page"></TitleCardPage>
+            <MyCards words={words} classNames="my-cards"></MyCards>
+        </div>
+        , document.querySelector('.word-index')
+    )
+</script>

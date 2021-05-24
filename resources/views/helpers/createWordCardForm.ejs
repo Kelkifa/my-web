@@ -1,0 +1,43 @@
+<% if(_logged.enable){ if(_logged.user.admin){ %>
+    <i id="add-card" class="gg-add"></i>
+    <div id="add-card-container">
+        <div class="add-card">
+            <div class="login-box">
+                <h5>Create</h5>
+                    <form method="POST" action="/word/store" name="form-create-word">
+                        <div class="inputs-form">   
+                            <div class="user-box">
+                                <input type="text" name="topic" autocomplete="off" required>
+                                <label>Topic</label>
+                            </div>  
+                            <div class="user-box">
+                                <input type="text" name="word" autocomplete="off" required>
+                                <label>Word</label>
+                            </div>
+                            <div class="user-box">
+                                <textarea type="text" name="description" autocomplete="off" required></textarea>
+                                <label>Description</label>
+                            </div>
+                            <div class="user-box">
+                                <input type="text" name="mean" autocomplete="off" required="">
+                                <label>Mean</label>
+                            </div>
+                            <div class="user-box">
+                                <input type="text" name="image" autocomplete="off" required>
+                                <label>Image</label>
+                            </div>
+                        </div>
+                        <div class="submit-form" id="js-button-create-word">
+                            <a href="#">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                Submit
+                            </a>
+                        </div>
+                    </form>
+                </div>
+        </div>
+    </div>
+<% }} %>

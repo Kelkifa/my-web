@@ -1,0 +1,16 @@
+<div class="btn-group dropdow">
+  <button type="button" class="btn btn-sm btn-danger user-dropdow"><%= _logged.user.fullname %></button>
+  <button type="button" class="btn btn-sm btn-danger dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <span class="sr-only">Toggle Dropdown</span>
+  </button>
+  <div class="dropdown-menu dropdown-menu-right">
+    <a class="dropdown-item text-dark" href="#">Action</a>
+    <a class="dropdown-item text-dark" href="#">Another action</a>
+    <a class="dropdown-item text-dark" href="#">Something else here</a>
+    <div class="dropdown-divider"></div>
+    <% if(_logged.user.admin) { %>
+      <a class="dropdown-item text-dark" href="/admin">Manage Admin</a>
+    <% } %>
+    <a class="dropdown-item text-dark" href="/logout">Log out</a>
+  </div>
+</div>
